@@ -1,0 +1,15 @@
+{
+  "name": "@centerforopenscience/prerender",
+  "version": "1.0.0",
+  "main": "index.js",
+  "author": "Center for Open Science <ops-admin@cos.io>",
+  "license": "Apache 2.0",
+  "private": true,
+  "scripts": {
+    "start": "./index.js"
+  },
+  "dependencies": {
+    "prerender": "^5.2.0",
+    "redis": "^2.8.0"
+  }
+}
