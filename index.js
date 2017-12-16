@@ -1,7 +1,6 @@
 #!/usr/bin/env node
 
 const prerender = require('prerender');
-const fs = require('fs');
 
 const server = prerender({
     chromeFlags: [
@@ -13,19 +12,14 @@ const server = prerender({
     ],
 });
 
-for (const filename of fs.readdirSync('./plugins')) {
-    if (!/\.js$/.test(filename))
-        continue;
-
-    server.use(require(`./plugins/${filename}`));
-}
-
-server.use(prerender.sendPrerenderHeader());
-server.use(prerender.removeScriptTags());
-server.use(prerender.httpHeaders());
-
 if (process.env.ALLOWED_DOMAINS) {
     server.use(prerender.whitelist());
 }
+
+server.use(require('./plugins/throttleToken'));
+server.use(prerender.sendPrerenderHeader());
+server.use(prerender.removeScriptTags());
+server.use(prerender.httpHeaders());
+server.use(require('./plugins/redis'));
 
 server.start();
