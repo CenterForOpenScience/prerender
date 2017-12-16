@@ -6,9 +6,16 @@ const prerenderUtil = require('prerender/lib/util');
 module.exports = {
     init() {
         const {
-            REDIS_URL = 'redis://127.0.0.1:6379/0',
-            PAGE_TTL = '86400'
-        } = process.env
+            REDIS_PASSWORD,
+            REDIS_HOST = '127.0.0.1',
+            REDIS_PORT = '6379',
+            REDIS_DB = '0'
+        } = process.env;
+        
+        const {
+            REDIS_URL = `redis://${REDIS_PASSWORD ? `:${REDIS_PASSWORD}@` : ''}${REDIS_HOST}:${REDIS_PORT}/${REDIS_DB}`,
+            PAGE_TTL = '86400',
+        } = process.env;
 
         const client = this.client = redis.createClient(REDIS_URL);
         this.redis_online = false;

@@ -23,7 +23,7 @@ services:
     depends_on:
       - redis
     environment:
-      REDIS_URL: redis://redis:6379/0
+      REDIS_HOST: redis
     env_file:
       - .docker-compose.env
     ports:
