@@ -23,21 +23,30 @@ module.exports = {
         const page_ttl_parsed = parseInt(PAGE_TTL);
         this.ttl_options = page_ttl_parsed > 0 ? ['EX', page_ttl_parsed] : [];
 
+        let lastError = 0;
+
         // Catch all error handler. If redis breaks for any reason it will be reported here.
         client.on('error', err => {
-            console.error(`Redis Cache Error: ${err.toString()}`);
+            if (lastError !== 1) {
+                console.error(`Redis Cache Error: ${err.toString()}`);
+                lastError = 1;
+            }
         });
 
         client.on('end', err => {
-            if (err) {
+            if (err && lastError !== 2) {
                 console.error(`Redis Cache End Error: ${err.toString()}`);
+                lastError = 2;
             }
 
-            this.redis_online = false;
-            prerenderUtil.log('Redis Cache Conncetion Closed. Will now bypass redis until it\'s back.');
+            if (this.redis_online) {
+                this.redis_online = false;
+                prerenderUtil.log('Redis Cache Conncetion Closed. Will now bypass redis until it\'s back.');
+            }
         });
 
         client.on('ready', () => {
+            lastError = 2;
             this.redis_online = true;
             prerenderUtil.log('Redis Cache Connected');
         });
