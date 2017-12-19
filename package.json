@@ -6,7 +6,7 @@
   "license": "Apache 2.0",
   "private": true,
   "scripts": {
-    "start": "./index.js"
+    "start": "node ./index.js"
   },
   "dependencies": {
     "prerender": "^5.2.0",
