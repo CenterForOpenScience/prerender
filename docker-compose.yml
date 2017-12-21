@@ -28,6 +28,9 @@ services:
       - .docker-compose.env
     ports:
       - 3000:3000
+    volumes:
+      - ./index.js:/code/index.js
+      - ./plugins/:/code/plugins/
     stdin_open: true
     networks:
       overlay:

@@ -53,12 +53,15 @@ module.exports = {
     },
 
     requestReceived(req, res, next) {
+        const localRegex = /^http:\/\/(127\.0\.0\.1|localhost)/;
+        const {url} = req.prerender;
+
         // If it's not a GET request, pass it through
-        if (!(this.redis_online && req.method === 'GET')) {
+        if (!(this.redis_online && req.method === 'GET') || localRegex.test(url)) {
             return next();
         }
 
-        this.client.get(req.prerender.url, (err, result) => {
+        this.client.get(url, (err, result) => {
             // Page found - return to prerender and 200
             if (!err && result) {
                 res.setHeader('X-Prerender-Redis-Cache', 'HIT');
