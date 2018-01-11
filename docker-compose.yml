@@ -1,4 +1,4 @@
-version: '3'
+version: '3.5'
 
 volumes:
   redis_data_vol:
@@ -19,7 +19,8 @@ services:
           - redis
 
   prerender:
-    build: '.'
+    build: 
+      context: .
     depends_on:
       - redis
     environment:
@@ -32,6 +33,7 @@ services:
       - ./index.js:/code/index.js
       - ./plugins/:/code/plugins/
     stdin_open: true
+    tmpfs: /tmp
     networks:
       overlay:
         aliases:

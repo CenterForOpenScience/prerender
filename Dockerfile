@@ -12,7 +12,7 @@ RUN apt-get update \
     && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list \
     && apt-get update \
     && apt-get install -y \
-        google-chrome-stable \
+        google-chrome-unstable \
     && rm -rf /var/lib/apt/lists/* \
     # GOSU
     && gpg --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
