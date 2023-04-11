@@ -11,6 +11,7 @@ WORKDIR "/home/node"
 
 COPY ./package.json .
 COPY ./server.js .
+COPY ./lib ./lib
 
 RUN npm install --no-package-lock
 
