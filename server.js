@@ -6,7 +6,7 @@ var server = prerender({
     chromeFlags: [ '--headless', '--disable-gpu', '--remote-debugging-port=9222', '--hide-scrollbars' ]
 });
 
-server.use(require('./lib/plugins/throttleToken'));
+// server.use(require('./lib/plugins/throttleToken'));
 // server.use(prerender.sendPrerenderHeader());
 // server.use(prerender.browserForceRestart());
 // server.use(prerender.blockResources());
