@@ -7,7 +7,7 @@ var server = prerender({
 });
 
 server.use(require('./lib/plugins/throttleToken'));
-server.use(prerender.sendPrerenderHeader());
+// server.use(prerender.sendPrerenderHeader());
 // server.use(prerender.browserForceRestart());
 // server.use(prerender.blockResources());
 // server.use(prerender.addMetaTags());
