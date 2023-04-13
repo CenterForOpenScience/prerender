@@ -1,35 +1,21 @@
-FROM node:10-slim
+FROM node:16-alpine
 
-ENV NODE_ENV=production \
-    GOSU_VERSION=1.10
+ENV CHROME_BIN=/usr/bin/chromium-browser
+ENV CHROME_PATH=/usr/lib/chromium/
 
-RUN apt-get update \
-    # Chrome
-    && apt-get install -y \
-        apt-transport-https \
-        ca-certificates \
-    && curl -sS https://dl.google.com/linux/linux_signing_key.pub | apt-key add - \
-    && echo "deb [arch=amd64] http://dl.google.com/linux/chrome/deb/ stable main" | tee /etc/apt/sources.list.d/google-chrome.list \
-    && apt-get update \
-    && apt-get install -y \
-        google-chrome-stable \
-    && rm -rf /var/lib/apt/lists/* \
-    # GOSU
-    && gpg --no-tty --keyserver pool.sks-keyservers.net --recv-keys B42F6819007F00F88E364FD4036A9C25BF357DD4 \
-    && export GOSU_URL="https://github.com/tianon/gosu/releases/download/${GOSU_VERSION}/gosu-$(dpkg --print-architecture)" \
-    && curl -o /usr/local/bin/gosu -SL "${GOSU_URL}" \
-    && curl -o /usr/local/bin/gosu.asc -SL "${GOSU_URL}.asc" \
-    && gpg --verify /usr/local/bin/gosu.asc \
-    && rm /usr/local/bin/gosu.asc \
-    && chmod +x /usr/local/bin/gosu \
-    && mkdir -p /code
+RUN apk add --update-cache chromium tini \
+ && rm -rf /var/cache/apk/* /tmp/*
 
-WORKDIR /code
+USER node
+WORKDIR "/home/node"
 
-ADD ./ ./
+COPY ./package.json .
+COPY ./server.js .
+COPY ./lib ./lib
 
-RUN yarn --frozen-lockfile
+RUN npm install --no-package-lock
 
 EXPOSE 3000
 
-CMD [ "gosu", "node", "yarn", "start" ]
+ENTRYPOINT ["tini", "--"]
+CMD ["node", "server.js"]

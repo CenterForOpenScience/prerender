@@ -1,15 +1,31 @@
 {
-  "name": "@centerforopenscience/prerender",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "Center for Open Science <ops-admin@cos.io>",
-  "license": "Apache 2.0",
-  "private": true,
-  "scripts": {
-    "start": "node ./index.js"
+  "author": "Prerender.io",
+  "name": "prerender",
+  "description": "Service to prerender Javascript rendered pages for SEO",
+  "version": "5.20.2",
+  "license": "MIT",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/prerender/prerender"
   },
   "dependencies": {
-    "prerender": "^5.2.0",
-    "redis": "^2.8.0"
+    "body-parser": "^1.19.0",
+    "chrome-remote-interface": "^0.30.0",
+    "compression": "^1.7.4",
+    "express": "^4.17.1",
+    "he": "^1.2.0",
+    "uuid": "^8.3.2",
+    "valid-url": "^1.0.9"
+  },
+  "devDependencies": {
+    "mocha": "^8.4.0",
+    "sinon": "^11.1.1"
+  },
+  "scripts": {
+    "start": "node server.js",
+    "test": "./node_modules/.bin/mocha --recursive"
+  },
+  "engines": {
+    "node": ">=10"
   }
 }
