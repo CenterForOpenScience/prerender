@@ -11,6 +11,7 @@ var server = prerender({
 // server.use(prerender.browserForceRestart());
 // server.use(prerender.blockResources());
 // server.use(prerender.addMetaTags());
+server.use(require('prerender-aws-s3-cache'))
 server.use(prerender.removeScriptTags());
 server.use(prerender.httpHeaders());
 
