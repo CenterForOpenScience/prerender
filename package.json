@@ -16,7 +16,9 @@
     "he": "^1.2.0",
     "prerender-aws-s3-cache": "^1.0.1",
     "uuid": "^8.3.2",
-    "valid-url": "^1.0.9"
+    "valid-url": "^1.0.9",
+    "prerender-aws-s3-cache": "^1.0.1",
+    "prerender-redis-cache": "^0.2.2"
   },
   "devDependencies": {
     "mocha": "^8.4.0",
