@@ -1,15 +1,23 @@
+version: '3.9'
+
 services:
     prerender:
         build: .
         ports:
         - 3000:3000
         environment:
+        # - REDIS_URL=redis://6379
         - MEMORY_CACHE=0
         - BUCKET_CACHE=0
         - CACHE_MAXSIZE=10000
         - CACHE_TTL=6000
         volumes:
         - ./server.js:/home/node/server.js:ro
-        restart: unless-stopped
+        # restart: unless-stopped
+      # redis:
+      #   image: redis:alpine
+      #   stdin_open: true
 volumes:
   step:
+    # links:
+    #   - redis
