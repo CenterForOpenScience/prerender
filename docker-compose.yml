@@ -11,6 +11,7 @@ services:
         - BUCKET_CACHE=0
         - CACHE_MAXSIZE=10000
         - CACHE_TTL=6000
+        - URL_RESPONSE_403=accounts.osf.io
         volumes:
         - ./server.js:/home/node/server.js:ro
         # restart: unless-stopped
