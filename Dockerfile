@@ -10,10 +10,11 @@ USER node
 WORKDIR "/home/node"
 
 COPY ./package.json .
-COPY ./server.js .
-COPY ./lib ./lib
 
 RUN npm install --no-package-lock
+
+COPY ./server.js .
+COPY ./lib ./lib
 
 EXPOSE 3000
 
